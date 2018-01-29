@@ -52,7 +52,7 @@ public class JSONDataDiffService {
         JSONData jsonData = jsonDataRepository.findByDiffId(id);
 
         if (jsonData != null) {
-            if ((jsonData.hasLeftData() && type.equals(LEFT) || (jsonData.hasLeftData() && type.equals(RIGHT)))) {
+            if ((jsonData.hasLeftData() && type.equals(LEFT) || (jsonData.hasRightData() && type.equals(RIGHT)))) {
                 throw new FileAlreadyExistsException(id, type);
             }
         } else {
@@ -78,7 +78,7 @@ public class JSONDataDiffService {
         }
 
         byte[] leftData = jsonData.getLeft().getBytes();
-        byte[] rightData = jsonData.getLeft().getBytes();
+        byte[] rightData = jsonData.getRight().getBytes();
 
         if (Arrays.equals(leftData, rightData)) {
             return "They are equal";
@@ -86,7 +86,7 @@ public class JSONDataDiffService {
             return "They have different sizes. Left JSON size: " + leftData.length + ", Right JSON size: " + rightData.length;
         } else {
             int size = leftData.length;
-            StringBuilder builder = new StringBuilder("They have same sizes, but their content are different. Wrong bytes indexes: ");
+            StringBuilder builder = new StringBuilder("They have same sizes, but their content are different. Wrong bytes offsets: ");
 
             for (int i=0;i<size;i++) {
                 if (leftData[i] != rightData[i]) {

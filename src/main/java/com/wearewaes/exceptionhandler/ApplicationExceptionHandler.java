@@ -80,7 +80,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     private List<Response> createMessageList(String key, Exception ex, String[] args) {
         String userMessage = messageSource.getMessage(key, args, LocaleContextHolder.getLocale());
-        String developerMessage = userMessage + ". StackTrace: " + ex.getCause() != null ? ex.getCause().toString() : ex.toString();
+        String developerMessage = userMessage + ". Exception: " + (ex.getCause() != null ? ex.getCause().toString() : ex.toString());
         return Arrays.asList(ResponseBuilder.oneResponse().withUserMessage(userMessage).withDeveloperMessage(developerMessage).get());
     }
 
