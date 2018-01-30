@@ -1,10 +1,13 @@
 package com.wearewaes.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * Class that represents an simplified {@link JSONData} for a user request
  */
 public class JSONDataDTO {
 
+    @ApiModelProperty(value = "This is the json value (Base64)", required = true)
     private String value;
 
     public String getValue() {
@@ -17,8 +20,12 @@ public class JSONDataDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         JSONDataDTO that = (JSONDataDTO) o;
 

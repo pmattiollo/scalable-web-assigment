@@ -1,13 +1,10 @@
 package com.wearewaes.event;
 
-import org.springframework.context.ApplicationEvent;
-import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletResponse;
 
-public class ResourceCreatedEvent extends ApplicationEvent {
+import org.springframework.context.ApplicationEvent;
 
-    private static final long serialVersionUID = 1L;
+public class ResourceCreatedEvent extends ApplicationEvent {
 
     private HttpServletResponse response;
     private Long code;
@@ -16,10 +13,6 @@ public class ResourceCreatedEvent extends ApplicationEvent {
         super(source);
         this.response = response;
         this.code = code;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public HttpServletResponse getResponse() {
