@@ -13,22 +13,48 @@ Project for a Scalable Web Assigment to WAES Company
    
 ## Getting Started
 The project doesn't need to be installed, but for build and execution purposes some requirements must be satisfied:
-- Build:
-  - [Java JDK 8+](https://www.java.com/ "Java Site");
+- Build and tests:
+  - [Java JDK 8](https://www.java.com/ "Java Site");
   - [Maven](https://maven.apache.org/ "Maven Site");
 - Execution:
-  - [Java JRE 8+](https://www.java.com/ "Java Site");
+  - [Java JRE 8](https://www.java.com/ "Java Site");
   
-The project can be tested by using [Postman](https://www.getpostman.com/ "POSTMAN Site") or [Docker](https://www.docker.com/ "DOCKER Site"). Before you run the project make sure that PORT 8080 is free to use.
+The project can be tested by using [Postman](https://www.getpostman.com/ "POSTMAN Site") or [Docker](https://www.docker.com/ "DOCKER Site").
+
+### Check the requirements
+After the installation of Java and Maven, you can check if they have been successful installed:
+```sh
+java -version
+```
+And:
+```sh
+mvn -version
+```
+
+## Installation
+To perform the project installation you must clone or download the [repository](https://github.com/pmattiollo/scalable-web-assigment "Github repository") into a directory and use Maven as following:
+```sh
+cd scalable-web-assigment
+mvn package
+```
+It will generate a Fat jar that can gets executed in any machine since Java is installed.
 
 ## Running the tests
-The unit and integration tests can be run using Maven in a console (cmb, bash, etc.) or over an IDEA (IntelliJ, Eclipse, etc.). The output execution is going to be displayed in the same console.
-
-```bash
+The unit and integration tests require Maven. It can performed in a console (cmb, bash, etc.) or over an IDEA (IntelliJ, Eclipse, etc.). The output will be displayed at the same console:
+```sh
 cd scalable-web-assigment
 mvn test
 ```
-This will run the entire project unit and integration tests.
+It will run all the unit and integration tests.
+
+## Running the application
+The execution requires Java and, by default, the port 8080 is going to used, so before you run the application make sure that port is ready to use. Furthermore, make sure the project has been sucessfully installed as described above. It can performed in a console (cmb, bash, etc.) or over an IDEA (IntelliJ, Eclipse, etc.). The output will be displayed at the same console:
+```sh
+cd scalable-web-assigment
+java -jar target/scalable-web-assigment-0.0.1-SNAPSHOT.jar
+```
+You can check the application status using any browser acessing `http:localhost:8080/health`.
+
 
 ## Built With
 - IntelliJ - IDE (Integrated Development Environment);
