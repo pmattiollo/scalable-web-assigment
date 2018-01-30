@@ -96,4 +96,18 @@ public class JSONData {
         return right != null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JSONData jsonData = (JSONData) o;
+
+        return id != null ? id.equals(jsonData.id) : jsonData.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }
