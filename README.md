@@ -53,7 +53,7 @@ The execution requires Java and, by default, the port 8080 is going to used, so 
 cd scalable-web-assigment
 java -jar target/scalable-web-assigment-0.0.1-SNAPSHOT.jar
 ```
-You can check the application status using any browser acessing `http:localhost:8080/health`.
+You can check the application status using any browser acessing `http://localhost:8080/actuator/health`.
 
 
 ## Built With
