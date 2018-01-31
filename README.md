@@ -73,5 +73,12 @@ All details of Rest API, including design, documentation and consuming can be vi
 ## Contributing
 Any contribuition is welcome. Every pull request will be carefully evaluated.
 
+## Suggestions for improvement
+- Another approach to send the JSON data;
+- Improvements on the usage of REST verbs and code errors;
+- Improvements on the API documentation;
+- Addition of maven Docker plugin for facilitate the Docker usage;
+- Creation of profiles to use different configurations.
+
 ## Authors
 - **[Pedro Humberto Mattiollo](www.linkedin.com/in/pmattiollo)**
