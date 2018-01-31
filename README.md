@@ -58,6 +58,24 @@ You can check the application status using any browser acessing `http://localhos
 ## Rest API
 All details of Rest API, including design, documentation and consuming can be visualized using Swagger Framework. You can see how API works or even test the application using any browser, accessing the provided endpoint `http://localhost:8080/swagger-ui.html`.
 
+Request example:
+```
+method: POST
+url: http://localhost:8080/v1/diff/1/left
+body: 
+{
+  "value": "UGVkcm8gSHVtYmVydG8="
+}
+```
+Response example:
+```
+status: 201 CREATED
+location: http://localhost:8080/v1/diff/1
+body: 
+{
+  "userMessage": "[OK] - LEFT data has been uploaded sucessfully"
+}
+```
 
 ## Built With
 - IntelliJ - IDE (Integrated Development Environment);
