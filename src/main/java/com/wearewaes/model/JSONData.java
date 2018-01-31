@@ -1,9 +1,17 @@
 package com.wearewaes.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * A model that represents a JSON data object
+ */
 @Entity
 public class JSONData {
 
@@ -12,27 +20,24 @@ public class JSONData {
     private Long id;
 
     @Lob
-    @Size(max = 5000)
+    @Size(max = 10000)
     private String left;
 
     @Lob
-    @Size(max = 5000)
+    @Size(max = 10000)
     private String right;
 
     @NotNull
     private Long diffId;
 
-    /**
-     * Default constructor for a new JSONData.
-     * This object represents a map for data comparision
-     */
-    public JSONData() {}
+    public JSONData() {
+    }
 
     /**
      * Constructor for a new JSONData only with the user specified ID.
      * This object represents a map for data comparision
      *
-     * @param diffId - user specified ID
+     * @param diffId that represents the user specified ID
      */
     public JSONData(Long diffId) {
         this.diffId = diffId;
@@ -40,12 +45,12 @@ public class JSONData {
 
     /**
      * Constructor for a new JSONData receiving all parameters.
-     * This object represents a map for data comparision
+     * This object represents a map for data comparision and the data length is limited in 10000
      *
-     * @param id - database ID
-     * @param left - left JSON file base64 encoded
-     * @param right - right JSON file base64 encoded
-     * @param diffId - user specified ID
+     * @param id that represents the database ID
+     * @param left that represents the left JSON file base64 encoded
+     * @param right that represents the right JSON file base64 encoded
+     * @param diffId that represents the user specified ID
      */
     public JSONData(Long id, String left, String right, Long diffId) {
         this.id = id;
@@ -98,8 +103,12 @@ public class JSONData {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         JSONData jsonData = (JSONData) o;
 

@@ -1,15 +1,8 @@
 package com.wearewaes.service;
 
-import com.wearewaes.builder.JSONDataBuilder;
-import com.wearewaes.builder.JSONDataDTOBuilder;
-import com.wearewaes.model.InputType;
-import com.wearewaes.model.JSONData;
-import com.wearewaes.model.JSONDataDTO;
-import com.wearewaes.repository.JSONDataRepository;
-import com.wearewaes.service.exception.EmptyJsonDataException;
-import com.wearewaes.service.exception.FileAlreadyExistsException;
-import com.wearewaes.service.exception.IDNotFoundException;
-import com.wearewaes.service.exception.NumberOfFilesToDiffException;
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.ArgumentMatchers.any;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,8 +13,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.hamcrest.CoreMatchers.is;
+import com.wearewaes.builder.JSONDataBuilder;
+import com.wearewaes.builder.JSONDataDTOBuilder;
+import com.wearewaes.model.InputType;
+import com.wearewaes.model.JSONData;
+import com.wearewaes.model.JSONDataDTO;
+import com.wearewaes.repository.JSONDataRepository;
+import com.wearewaes.service.exception.EmptyJsonDataException;
+import com.wearewaes.service.exception.IDNotFoundException;
+import com.wearewaes.service.exception.InputDataAlreadyExistsException;
+import com.wearewaes.service.exception.InsufficientDataToDiffException;
 
+/**
+ * Responsible for perform all unit tests over the {@link JSONDataDiffService} class
+ */
 public class JSONDataDiffServiceTest {
 
     @Mock
@@ -38,6 +43,9 @@ public class JSONDataDiffServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test if the service will ensure that the left data can be saved
+     */
     @Test
     public void shouldSaveDataWithNoDiffIdRegistered() {
         // Scenario
@@ -46,7 +54,7 @@ public class JSONDataDiffServiceTest {
         JSONData jsonDataCreated = JSONDataBuilder.oneData().withLeft(jsonDataDTO.getValue()).get();
 
         Mockito.doReturn(null).when(jsonDataRepository).findByDiffId(id);
-        Mockito.when(jsonDataRepository.save(Mockito.any(JSONData.class))).thenReturn(null);
+        Mockito.when(jsonDataRepository.save(any(JSONData.class))).thenReturn(null);
 
         // Action
         jSONDataDiffService.saveLeft(id, jsonDataDTO);
@@ -55,6 +63,9 @@ public class JSONDataDiffServiceTest {
         Mockito.verify(jsonDataRepository).save(jsonDataCreated);
     }
 
+    /**
+     * Test if the service will ensure that an empty JSON can't be saved
+     */
     @Test(expected = EmptyJsonDataException.class)
     public void shouldNotSaveEmptyData() {
         // Scenario
@@ -65,6 +76,10 @@ public class JSONDataDiffServiceTest {
         jSONDataDiffService.saveRight(id, jsonDataDTO);
     }
 
+    /**
+     * Test if the service will ensure that data can't be saved if the same data type was previously saved for the same ID. For example, a user can't
+     * upload more than one left data for the same ID
+     */
     @Test
     public void shouldNotSaveIfDataAlreadyExists() {
         // Scenario
@@ -77,14 +92,17 @@ public class JSONDataDiffServiceTest {
         try {
             jSONDataDiffService.saveRight(id, jsonDataDTO);
             Assert.fail();
-        } catch (FileAlreadyExistsException e) {
+        } catch (InputDataAlreadyExistsException e) {
             Assert.assertThat(e.getId(), is(id));
             Assert.assertThat(e.getType(), is(InputType.RIGHT));
         }
     }
 
+    /**
+     * Test if the service will ensure that no diff operations will be performed when the ID informed by the user is not found
+     */
     @Test
-    public void shouldNotDiffFilesWhenIdIsNotFound(){
+    public void shouldNotDiffFilesWhenIdIsNotFound() {
         // Scenario
         Long id = 1L;
         Mockito.doReturn(null).when(jsonDataRepository).findByDiffId(id);
@@ -98,8 +116,11 @@ public class JSONDataDiffServiceTest {
         }
     }
 
+    /**
+     * Test if the service will ensure that no diff operations will be performed when left or right data was not found
+     */
     @Test
-    public void shouldNotDiffFilesWhenIsMissingOne(){
+    public void shouldNotDiffFilesWhenIsMissingOne() {
         // Scenario
         Long id = 1L;
         JSONData jsonData = JSONDataBuilder.oneData().withId(id).withLeft(JSONDataDTOBuilder.oneData().get().getValue()).get();
@@ -109,15 +130,18 @@ public class JSONDataDiffServiceTest {
         try {
             jSONDataDiffService.getJSONDiffResult(id);
             Assert.fail();
-        } catch (NumberOfFilesToDiffException e) {
+        } catch (InsufficientDataToDiffException e) {
             Assert.assertThat(e.getId(), is(id));
             Assert.assertThat(e.isHasLeftJson(), is(true));
             Assert.assertThat(e.isHasRightJson(), is(false));
         }
     }
 
+    /**
+     * Test if the service will ensure that it will be returned equal when left and right data are the same
+     */
     @Test
-    public void shouldBeEqual(){
+    public void shouldBeEqual() {
         // Scenario
         Long id = 1L;
         String value = JSONDataDTOBuilder.oneData().get().getValue();
@@ -131,8 +155,11 @@ public class JSONDataDiffServiceTest {
         Assert.assertThat(result, is("They are equal"));
     }
 
+    /**
+     * Test if the service will ensure that it will be returned the diff results when left data is bigger than the right
+     */
     @Test
-    public void shouldHaveDifferentSize(){
+    public void shouldHaveDifferentSize() {
         // Scenario
         Long id = 1L;
         String left = "UGVkcm8gSHVtYmVydG8=";
@@ -147,8 +174,12 @@ public class JSONDataDiffServiceTest {
         Assert.assertThat(result, is("They have different sizes. Left JSON size: " + left.length() + ", Right JSON size: " + right.length()));
     }
 
+    /**
+     * Test if the service will ensure that it will be returned the diff results when left data has the same size than the right, but different
+     * content
+     */
     @Test
-    public void shouldHaveSameSizeButDifferentContent(){
+    public void shouldHaveSameSizeButDifferentContent() {
         // Scenario
         Long id = 1L;
         JSONData jsonData = JSONDataBuilder.oneData().withId(id).withLeft("QnJlbm8=").withRight("UGVkcm8=").get();

@@ -4,11 +4,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationEvent;
 
+/**
+ * Event used when a new resource is created
+ */
 public class ResourceCreatedEvent extends ApplicationEvent {
 
     private HttpServletResponse response;
     private Long code;
 
+    /**
+     * Constructor that builds an resource creation
+     *
+     * @param source that represents the object that triggered the event
+     * @param response that represents the requisition response
+     * @param code that represents the resource identifier
+     */
     public ResourceCreatedEvent(Object source, HttpServletResponse response, Long code) {
         super(source);
         this.response = response;

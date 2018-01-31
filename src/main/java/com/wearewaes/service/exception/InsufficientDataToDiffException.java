@@ -1,12 +1,15 @@
 package com.wearewaes.service.exception;
 
-public class NumberOfFilesToDiffException extends RuntimeException {
+/**
+ * Exception that is thrown when the user try get the diff files result but one of them is missing
+ */
+public class InsufficientDataToDiffException extends RuntimeException {
 
     private Long id;
     private boolean hasLeftJson;
     private boolean hasRightJson;
 
-    public NumberOfFilesToDiffException(Long id, boolean hasLeftJson, boolean hasRightJson) {
+    public InsufficientDataToDiffException(Long id, boolean hasLeftJson, boolean hasRightJson) {
         super();
         this.id = id;
         this.hasLeftJson = hasLeftJson;

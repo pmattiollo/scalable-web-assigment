@@ -9,17 +9,17 @@ Project for a Scalable Web Assigment to WAES Company
   - The results provided follow the the JSON format:
     - If equal return that;
     - If not of equal size just return that;
-    - If of same size provide insight in where the diffs are (so mainly offsets + length in the data);
+  	- If of same size provide insight in where the diffs are (so mainly offsets + length in the data).
    
 ## Getting Started
 The project doesn't need to be installed, but for build and execution purposes some requirements must be satisfied:
 - Build and tests:
   - [Java JDK 8](https://www.java.com/ "Java Site");
-  - [Maven](https://maven.apache.org/ "Maven Site");
+  - [Maven 3+](https://maven.apache.org/ "Maven Site");
 - Execution:
   - [Java JRE 8](https://www.java.com/ "Java Site");
   
-The project can be tested by using [Postman](https://www.getpostman.com/ "POSTMAN Site") or [Docker](https://www.docker.com/ "DOCKER Site").
+The project can be tested by using [Postman](https://www.getpostman.com/ "POSTMAN Site"), [Swagger](https://swagger.io/ "Swagger Site") or [Docker](https://www.docker.com/ "DOCKER Site").
 
 ### Check the requirements
 After the installation of Java and Maven, you can check if they have been successful installed:
@@ -53,13 +53,17 @@ The execution requires Java and, by default, the port 8080 is going to used, so 
 cd scalable-web-assigment
 java -jar target/scalable-web-assigment-0.0.1-SNAPSHOT.jar
 ```
-You can check the application status using any browser acessing `http:localhost:8080/health`.
+You can check the application status using any browser acessing `http://localhost:8080/actuator/health`.
+
+## Rest API
+All details of Rest API, including design, documentation and consuming can be visualized using Swagger Framework. You can see how API works or even test the application using any browser, accessing the provided endpoint `http://localhost:8080/swagger-ui.html`.
 
 
 ## Built With
 - IntelliJ - IDE (Integrated Development Environment);
 - Java (Version 8) - Computer programming language;
 - Spring Framework - Complete framework with different modules (MVC, JPA, Security, etc.) ;
+- Swagger Framework - OAS (OpenAPI Specification);
 - Maven - Dependency Management;
 - JUnit - Unit testing framework;
 - Mockito - Mocking framework for testing purpouse;

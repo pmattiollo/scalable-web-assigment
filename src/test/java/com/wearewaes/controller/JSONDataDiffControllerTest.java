@@ -1,14 +1,12 @@
 package com.wearewaes.controller;
 
-import com.wearewaes.builder.JSONDataDTOBuilder;
-import com.wearewaes.controller.response.Response;
-import com.wearewaes.model.InputType;
-import com.wearewaes.model.JSONDataDTO;
-import com.wearewaes.service.JSONDataDiffService;
+import static org.hamcrest.CoreMatchers.is;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -17,14 +15,16 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.servlet.http.HttpServletResponse;
+import com.wearewaes.builder.JSONDataDTOBuilder;
+import com.wearewaes.controller.response.Response;
+import com.wearewaes.model.InputType;
+import com.wearewaes.model.JSONDataDTO;
+import com.wearewaes.service.JSONDataDiffService;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+/**
+ * Responsible for perform all unit tests over the {@link JSONDataDiffController} class
+ */
 public class JSONDataDiffControllerTest {
 
     @Mock
@@ -44,13 +44,16 @@ public class JSONDataDiffControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test if the controller will return the proper response when the left data is uploaded
+     */
     @Test
     public void shouldReturnCreatedWhenLeftDataUpload() {
         // Scenario
         Long id = 1L;
         JSONDataDTO jsonDataDTO = JSONDataDTOBuilder.oneData().get();
         Mockito.doReturn(null).when(jsonDataDiffService).saveLeft(id, jsonDataDTO);
-        Mockito.doNothing().when(publisher).publishEvent(Mockito.any(ApplicationEvent.class));
+        Mockito.doNothing().when(publisher).publishEvent(ArgumentMatchers.any(ApplicationEvent.class));
 
         // Action and verification
         ResponseEntity<Response> response = jsonDataDiffController.uploadLeftFile(id, jsonDataDTO, null);
@@ -61,13 +64,16 @@ public class JSONDataDiffControllerTest {
         errorCollector.checkThat(response.getBody().getUserMessage(), is("[OK] - " + InputType.LEFT.name() + " data has been uploaded sucessfully"));
     }
 
+    /**
+     * Test if the controller will return the proper response when the right data is uploaded
+     */
     @Test
     public void shouldReturnCreatedWhenRightDataUpload() {
         // Scenario
         Long id = 1L;
         JSONDataDTO jsonDataDTO = JSONDataDTOBuilder.oneData().get();
         Mockito.doReturn(null).when(jsonDataDiffService).saveRight(id, jsonDataDTO);
-        Mockito.doNothing().when(publisher).publishEvent(Mockito.any(ApplicationEvent.class));
+        Mockito.doNothing().when(publisher).publishEvent(ArgumentMatchers.any(ApplicationEvent.class));
 
         // Action and verification
         ResponseEntity<Response> response = jsonDataDiffController.uploadRightFile(id, jsonDataDTO, null);
@@ -78,6 +84,9 @@ public class JSONDataDiffControllerTest {
         errorCollector.checkThat(response.getBody().getUserMessage(), is("[OK] - " + InputType.RIGHT.name() + " data has been uploaded sucessfully"));
     }
 
+    /**
+     * Test if the controller will return the proper response when the diff operation is performed
+     */
     @Test
     public void shouldReturnOKWhenDiff() {
         // Scenario

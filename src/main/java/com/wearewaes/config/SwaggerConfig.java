@@ -13,16 +13,29 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Represents the Swagger Configuration
+ */
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
 
+    /**
+     * Create a documentation bean that defines the API documentation (based on Endpoints)
+     *
+     * @return the {@link Docket} with the documentation
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.wearewaes.controller"))
                 .paths(PathSelectors.any()).build().pathMapping("/").apiInfo(metaData());
     }
 
+    /**
+     * Provides the API metadata with some custom info
+     *
+     * @return the {@link ApiInfo} with the API metadata
+     */
     private ApiInfo metaData() {
         Contact contact = new Contact("Pedro Humberto Mattiollo", "https://github.com/pmattiollo", "pmattiollo@gmail.com");
 

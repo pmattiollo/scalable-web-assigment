@@ -3,7 +3,7 @@ package com.wearewaes.model;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Class that represents an simplified {@link JSONData} for a user request
+ * Data Transfer Object that represents an simplified {@link JSONData} for a user request
  */
 public class JSONDataDTO {
 
