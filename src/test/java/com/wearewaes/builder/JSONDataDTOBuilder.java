@@ -1,6 +1,5 @@
 package com.wearewaes.builder;
 
-import com.wearewaes.model.JSONData;
 import com.wearewaes.model.JSONDataDTO;
 
 /**

@@ -1,9 +1,8 @@
 package com.wearewaes.event;
 
-import org.springframework.context.ApplicationEvent;
-import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationEvent;
 
 /**
  * Event used when a new resource is created

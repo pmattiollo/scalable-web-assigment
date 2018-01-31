@@ -22,7 +22,7 @@ public class JSONDataBuilder {
         JSONData jsonData = new JSONData();
         jsonData.setDiffId(1L);
         JSONDataBuilder jsonDataBuilder = new JSONDataBuilder(jsonData);
-        return  jsonDataBuilder;
+        return jsonDataBuilder;
     }
 
     /**

@@ -1,20 +1,21 @@
 package com.wearewaes.service;
 
+import static com.wearewaes.model.InputType.LEFT;
+import static com.wearewaes.model.InputType.RIGHT;
+
+import java.util.Arrays;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.wearewaes.model.InputType;
 import com.wearewaes.model.JSONData;
 import com.wearewaes.model.JSONDataDTO;
 import com.wearewaes.repository.JSONDataRepository;
 import com.wearewaes.service.exception.EmptyJsonDataException;
-import com.wearewaes.service.exception.InputDataAlreadyExistsException;
 import com.wearewaes.service.exception.IDNotFoundException;
+import com.wearewaes.service.exception.InputDataAlreadyExistsException;
 import com.wearewaes.service.exception.InsufficientDataToDiffException;
-import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.Optional;
-
-import static com.wearewaes.model.InputType.LEFT;
-import static com.wearewaes.model.InputType.RIGHT;
 
 /**
  * Service implementation used for data upload and comparison
@@ -23,7 +24,6 @@ import static com.wearewaes.model.InputType.RIGHT;
 public class JSONDataDiffServiceImpl implements JSONDataDiffService {
 
     private JSONDataRepository jsonDataRepository;
-
 
     public JSONDataDiffServiceImpl(JSONDataRepository jsonDataRepository) {
         this.jsonDataRepository = jsonDataRepository;
@@ -38,7 +38,7 @@ public class JSONDataDiffServiceImpl implements JSONDataDiffService {
      */
     @Override
     public JSONData saveLeft(Long id, JSONDataDTO jsonDataDTO) {
-       return saveFile(id, jsonDataDTO, LEFT);
+        return saveFile(id, jsonDataDTO, LEFT);
     }
 
     /**
@@ -80,7 +80,7 @@ public class JSONDataDiffServiceImpl implements JSONDataDiffService {
             int size = leftData.length;
             StringBuilder builder = new StringBuilder("They have same sizes, but their content are different. Wrong bytes offsets: ");
 
-            for (int i=0;i<size;i++) {
+            for (int i = 0; i < size; i++) {
                 if (leftData[i] != rightData[i]) {
                     builder.append(i);
                     builder.append(", ");

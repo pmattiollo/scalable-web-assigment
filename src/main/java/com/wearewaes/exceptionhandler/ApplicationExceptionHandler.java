@@ -45,7 +45,8 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
      * @return the {@link ResponseEntity} with some custom messages
      */
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
         List<Response> messsagesList = createMessageList("invalid.message", ex, null);
         return handleExceptionInternal(ex, messsagesList, headers, status, request);
     }
@@ -60,7 +61,8 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
      * @return the {@link ResponseEntity} with some custom messages
      */
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
         List<Response> messsagesList = new ArrayList<>();
 
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
@@ -79,20 +81,21 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
      * @param request that represents the request
      * @return the {@link ResponseEntity} with some custom messages
      */
-    @ExceptionHandler({EmptyJsonDataException.class})
+    @ExceptionHandler({ EmptyJsonDataException.class })
     public ResponseEntity<Object> handleEmptyJsonDataException(EmptyJsonDataException ex, WebRequest request) {
         List<Response> messageList = createMessageList("empty.jsondata.uploaded", ex, null);
         return handleExceptionInternal(ex, messageList, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     /**
-     * Input data already exists exceptions handler. These exceptions are thrown when the users try to upload some data that was previously uploaded according to {@link com.wearewaes.model.InputType} values
+     * Input data already exists exceptions handler. These exceptions are thrown when the users try to upload some data that was previously uploaded
+     * according to {@link com.wearewaes.model.InputType} values
      *
      * @param ex that represents the exception to be treated
      * @param request that represents the request
      * @return the {@link ResponseEntity} with some custom messages
      */
-    @ExceptionHandler({InputDataAlreadyExistsException.class})
+    @ExceptionHandler({ InputDataAlreadyExistsException.class })
     public ResponseEntity<Object> handleFileAlreadyExistsException(InputDataAlreadyExistsException ex, WebRequest request) {
         String[] args = { ex.getType().name(), ex.getId().toString() };
         List<Response> messageList = createMessageList("already.exists.jsondata", ex, args);
@@ -100,13 +103,15 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     /**
-     * Insufficient data to compare exceptions handler. These exceptions are thrown when the users try get the diff data but is missing one of the left or * Insufficient number of files exceptions handler. These exceptions are thrown when the users try get the diff files but is missing one of the left or right data
+     * Insufficient data to compare exceptions handler. These exceptions are thrown when the users try get the diff data but is missing one of the
+     * left or * Insufficient number of files exceptions handler. These exceptions are thrown when the users try get the diff files but is missing one
+     * of the left or right data
      *
      * @param ex that represents the exception to be treated
      * @param request that represents the request
      * @return the {@link ResponseEntity} with some custom messages
      */
-    @ExceptionHandler({InsufficientDataToDiffException.class})
+    @ExceptionHandler({ InsufficientDataToDiffException.class })
     public ResponseEntity<Object> handleFileAlreadyExistsException(InsufficientDataToDiffException ex, WebRequest request) {
         String[] args = { ex.getId().toString(), ex.isHasLeftJson() ? "OK" : "Missing", ex.isHasRightJson() ? "OK" : "Missing" };
         List<Response> messageList = createMessageList("file.missing", ex, args);
@@ -114,13 +119,14 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     /**
-     * ID not found exceptions handler. These exceptions are thrown when the users try get the diff files but is missing one of the left or * Insufficient number of files exceptions handler. These exceptions are thrown when the users try get the diff files of an ID that does'n exist
+     * ID not found exceptions handler. These exceptions are thrown when the users try get the diff files but is missing one of the left or *
+     * Insufficient number of files exceptions handler. These exceptions are thrown when the users try get the diff files of an ID that does'n exist
      *
      * @param ex that represents the exception to be treated
      * @param request that represents the request
      * @return the {@link ResponseEntity} with some custom messages
      */
-    @ExceptionHandler({IDNotFoundException.class})
+    @ExceptionHandler({ IDNotFoundException.class })
     public ResponseEntity<Object> handleFileAlreadyExistsException(IDNotFoundException ex, WebRequest request) {
         String[] args = { ex.getId().toString() };
         List<Response> messageList = createMessageList("id.notfound", ex, args);

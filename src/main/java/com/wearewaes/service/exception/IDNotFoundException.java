@@ -1,7 +1,5 @@
 package com.wearewaes.service.exception;
 
-import com.wearewaes.model.InputType;
-
 /**
  * Exception that is thrown when the user try get the diff files result of an ID that does'n exist
  */

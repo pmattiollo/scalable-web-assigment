@@ -1,17 +1,22 @@
 package com.wearewaes.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.wearewaes.controller.response.Response;
 import com.wearewaes.controller.response.ResponseBuilder;
 import com.wearewaes.event.ResourceCreatedEvent;
 import com.wearewaes.model.JSONDataDTO;
 import com.wearewaes.service.JSONDataDiffService;
-import com.wearewaes.service.JSONDataDiffServiceImpl;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Controller that defines endpoints to receive all user requests and return the results

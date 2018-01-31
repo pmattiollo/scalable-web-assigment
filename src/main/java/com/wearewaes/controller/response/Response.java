@@ -1,7 +1,5 @@
 package com.wearewaes.controller.response;
 
-import org.springframework.stereotype.Component;
-
 /**
  * Class that represents an standardized message for user requests containing an user and developer message
  */
@@ -10,7 +8,8 @@ public class Response {
     private String userMessage;
     private String developerMessage;
 
-    public Response() {}
+    public Response() {
+    }
 
     /**
      * Response constructor that

@@ -1,6 +1,11 @@
 package com.wearewaes.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,7 +30,8 @@ public class JSONData {
     @NotNull
     private Long diffId;
 
-    public JSONData() {}
+    public JSONData() {
+    }
 
     /**
      * Constructor for a new JSONData only with the user specified ID.
@@ -39,7 +45,7 @@ public class JSONData {
 
     /**
      * Constructor for a new JSONData receiving all parameters.
-     * This object represents a map for data comparision
+     * This object represents a map for data comparision and the data length is limited in 10000
      *
      * @param id that represents the database ID
      * @param left that represents the left JSON file base64 encoded
@@ -97,8 +103,12 @@ public class JSONData {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         JSONData jsonData = (JSONData) o;
 
