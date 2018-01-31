@@ -3,7 +3,7 @@ package com.wearewaes.controller.response;
 import org.springframework.stereotype.Component;
 
 /**
- * Class that represents default messages to user requests
+ * Class that represents an standardized message for user requests containing an user and developer message
  */
 public class Response {
 
@@ -12,6 +12,12 @@ public class Response {
 
     public Response() {}
 
+    /**
+     * Response constructor that
+     *
+     * @param userMessage that represents the user message
+     * @param developerMessage that represents the developer message containing more details
+     */
     public Response(String userMessage, String developerMessage) {
         this.userMessage = userMessage;
         this.developerMessage = developerMessage;

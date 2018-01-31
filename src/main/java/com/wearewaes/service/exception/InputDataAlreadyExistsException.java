@@ -2,12 +2,15 @@ package com.wearewaes.service.exception;
 
 import com.wearewaes.model.InputType;
 
-public class FileAlreadyExistsException extends RuntimeException {
+/**
+ * Exception that is thrown when the user try to upload some data that was previously uploaded
+ */
+public class InputDataAlreadyExistsException extends RuntimeException {
 
     private Long id;
     private InputType type;
 
-    public FileAlreadyExistsException(Long id, InputType type) {
+    public InputDataAlreadyExistsException(Long id, InputType type) {
         super();
         this.id = id;
         this.type = type;

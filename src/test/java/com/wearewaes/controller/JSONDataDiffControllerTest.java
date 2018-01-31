@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+/**
+ * Responsible for perform all unit tests over the {@link JSONDataDiffController} class
+ */
 public class JSONDataDiffControllerTest {
 
     @Mock
@@ -44,6 +47,9 @@ public class JSONDataDiffControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test if the controller will return the proper response when the left data is uploaded
+     */
     @Test
     public void shouldReturnCreatedWhenLeftDataUpload() {
         // Scenario
@@ -61,6 +67,9 @@ public class JSONDataDiffControllerTest {
         errorCollector.checkThat(response.getBody().getUserMessage(), is("[OK] - " + InputType.LEFT.name() + " data has been uploaded sucessfully"));
     }
 
+    /**
+     * Test if the controller will return the proper response when the right data is uploaded
+     */
     @Test
     public void shouldReturnCreatedWhenRightDataUpload() {
         // Scenario
@@ -78,6 +87,9 @@ public class JSONDataDiffControllerTest {
         errorCollector.checkThat(response.getBody().getUserMessage(), is("[OK] - " + InputType.RIGHT.name() + " data has been uploaded sucessfully"));
     }
 
+    /**
+     * Test if the controller will return the proper response when the diff operation is performed
+     */
     @Test
     public void shouldReturnOKWhenDiff() {
         // Scenario
