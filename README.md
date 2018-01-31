@@ -17,7 +17,7 @@ The project doesn't need to be installed, but for build and execution purposes s
   - [Java JDK 8](https://www.java.com/ "Java Site");
   - [Maven 3+](https://maven.apache.org/ "Maven Site");
 - Execution:
-  - [Java JRE 8](https://www.java.com/ "Java Site");
+  - [Java JRE or JDK 8](https://www.java.com/ "Java Site");
   
 The project can be tested by using [Postman](https://www.getpostman.com/ "POSTMAN Site"), [Swagger](https://swagger.io/ "Swagger Site") or [Docker](https://www.docker.com/ "DOCKER Site").
 
@@ -48,7 +48,7 @@ mvn test
 It will run all the unit and integration tests.
 
 ## Running the application
-The execution requires Java and, by default, the port 8080 is going to used, so before you run the application make sure that port is ready to use. Furthermore, make sure the project has been sucessfully installed as described above. It can performed in a console (cmb, bash, etc.) or over an IDEA (IntelliJ, Eclipse, etc.). The output will be displayed at the same console:
+By default, the application will be initialized at localhost and use the 8080 port, so before you run the application make sure that port is ready to use. Furthermore, make sure the project has been sucessfully installed as described above. The execution can be performed in a console (cmb, bash, etc.) or over an IDEA (IntelliJ, Eclipse, etc.). The output will be displayed at the console:
 ```sh
 cd scalable-web-assigment
 java -jar target/scalable-web-assigment-0.0.1-SNAPSHOT.jar
